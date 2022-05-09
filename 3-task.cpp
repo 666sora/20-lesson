@@ -48,7 +48,7 @@ int main() {
         basket.close();
     }
     else {
-        std::cout << catchingFish << "was not caught" << std::endl;
+        std::cout << catchingFish << " was not caught" << std::endl;
     }
 }
 
