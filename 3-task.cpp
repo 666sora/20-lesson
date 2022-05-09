@@ -2,32 +2,31 @@
 #include <fstream>
 #include <vector>
 
-bool kmp(std::string str, std::string substr)
+bool kmp(std::string &str, std::string &substr)
  {
-     std::vector<int> matches;
-     std::vector<int> p(substr.size() + str.size(), -1);
- 
+    std::vector<int> p(substr.size() + str.size(), -1);
+    
     for (int i = 0, j = -1;i < substr.size();)
-     {
-         while (j > -1 && substr[i] != substr[j])
-             j = p[j];
-         i++;
-         j++;
-         p[i] = j;
-     }
+    {
+        while (j > -1 && substr[i] != substr[j])
+            j = p[j];
+        i++;
+        j++;
+        p[i] = j;
+    }
      for (int i=0, j = 0;i < str.size();)
-     {
-         while (j > -1 && str[i] != substr[j])
-             j = p[j];
-         i++;
-         j++;
-         if (j == substr.size())
-         {
-             return true;
-         }
+    {
+        while (j > -1 && str[i] != substr[j])
+            j = p[j];
+        i++;
+        j++;
+        if (j == substr.size())
+        {
+            return true;
+        }
  
     }
-     return false;
+    return false;
  }
 
 int main() {
