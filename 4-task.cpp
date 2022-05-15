@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <ctime>
 
-void deposit(int* atm) {
+void deposit(int (&atm)[1000]) {
     std::srand(std::time(nullptr));
     for (int i = 0; i < 1000; i++) {
         if (atm[i] == 0) {
@@ -11,13 +11,13 @@ void deposit(int* atm) {
         }
     }
     std::ofstream atm_deposit("atm.bin", std::ios::binary);
-    atm_deposit.write((char*)atm, 1000);
+    atm_deposit.write((char*)atm, sizeof(atm));
     atm_deposit.close();
 }
 
-int withdraw(int* atm, int& cash) {
+int withdraw(int (&atm)[1000], int& cash) {
     std::ifstream atm_withdraw("atm.bin", std::ios::binary);
-    atm_withdraw.read((char*)atm, 1000);
+    atm_withdraw.read((char*)atm, sizeof(atm));
     atm_withdraw.close();
     for (int i = 0; i < 1000; i++) {
         if (cash > atm[i] - 100 && cash < atm[i] + 100) {
@@ -29,9 +29,9 @@ int withdraw(int* atm, int& cash) {
     return -1;
 }
 
-void refresh (int* atm) {
+void refresh (int (&atm)[1000]) {
     std::ofstream atm_refresh("atm.bin", std::ios::binary);
-    atm_refresh.write((char*)atm, 1000);
+    atm_refresh.write((char*)atm, sizeof(atm));
     atm_refresh.close();
 }
 
@@ -44,7 +44,7 @@ int main() {
         }
     }
     else {
-        atm_check.read((char*)atm, 1000);
+        atm_check.read((char*)atm, sizeof(atm));
     }
     atm_check.close();
     char answer;
